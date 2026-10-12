@@ -1,0 +1,88 @@
+=== Mutation a: src/handoff/tool.ts (asked=true counts without a request phrase)
+@@ -44 +44 @@ export function recruitTool(d: RecruitDeps): Tool {
+-      const asked = requested(d.text, d.names[agent]) && args.asked === true;
++      const asked = args.asked === true;
+  ✖ asked=true is not consent unless the student named the agent 
+  ✖ consent needs a request for that agent in the student's words; a negation vetoes it 
+  ℹ pass 41
+  ℹ fail 2
+  ✖ failing tests:
+  ✖ asked=true is not consent unless the student named the agent 
+  ✖ consent needs a request for that agent in the student's words; a negation vetoes it 
+--- reverted; suite after revert:
+  ℹ pass 43
+  ℹ fail 0
+
+=== Mutation b: src/engine.ts (G1 treats every agent as dispatched)
+@@ -180 +180 @@ export class Engine {
+-    const v = govern(raw, { persona: id, dispatched }, this.d.names);
++    const v = govern(raw, { persona: id, dispatched: ["academic", "financial", "social"] }, this.d.names);
+  ✖ engine G1: Penny's false 'dean's texting you now' (no hand-off this turn) never reaches the student or her history 
+  ✖ engine G1: a claim about an agent not dispatched is rewritten even when another one was (Penny went, Dean didn't) 
+  ✖ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) 
+  ℹ pass 40
+  ℹ fail 3
+  ✖ failing tests:
+  ✖ engine G1: Penny's false 'dean's texting you now' (no hand-off this turn) never reaches the student or her history 
+  ✖ engine G1: a claim about an agent not dispatched is rewritten even when another one was (Penny went, Dean didn't) 
+  ✖ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) 
+--- reverted; suite after revert:
+  ℹ pass 43
+  ℹ fail 0
+
+=== Mutation c: src/handoff/state.ts (offers never expire)
+@@ -25 +25 @@ import type { PersonaId, UserProfile } from "../types.ts";
+-export const OFFER_TTL_MS = 10 * 60_000;
++export const OFFER_TTL_MS = Infinity;
+  ✖ a 'yes' after the offer expired is just a message: nobody is brought in 
+  ✖ an offer expires after OFFER_TTL in every thread; another hand-off agent's thread only counts inside PARTY_TTL 
+  ✖ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) 
+  ℹ pass 40
+  ℹ fail 3
+  ✖ failing tests:
+  ✖ a 'yes' after the offer expired is just a message: nobody is brought in 
+  ✖ an offer expires after OFFER_TTL in every thread; another hand-off agent's thread only counts inside PARTY_TTL 
+  ✖ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) 
+--- reverted; suite after revert:
+  ℹ pass 43
+  ℹ fail 0
+
+=== Mutation d: src/handoff/run.ts (cooldown recorded without a real answer)
+@@ -61 +61 @@ export async function runRecruit(engine: Engine, phone: string, p: Pending): Pro
+-    if (answer) store.kv("shared", phone).set("handoffs", { ...handoffs(store, phone), [a.id]: engine.time() });
++    store.kv("shared", phone).set("handoffs", { ...handoffs(store, phone), [a.id]: engine.time() });
+  ✖ cooldown recorded only after a real answer: if Penny's answer failed, a yes a minute later runs her again 
+  ℹ pass 42
+  ℹ fail 1
+  ✖ failing tests:
+  ✖ cooldown recorded only after a real answer: if Penny's answer failed, a yes a minute later runs her again 
+--- reverted; suite after revert:
+  ℹ pass 43
+  ℹ fail 0
+
+=== Mutation e: src/engine.ts (G1 rewrite sets no pending offer)
+@@ -185 +185 @@ export class Engine {
+-    if (setting === "dm" && offered.length) {
++    if (false) {
+  ✖ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) 
+  ℹ pass 42
+  ℹ fail 1
+  ✖ failing tests:
+  ✖ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) 
+--- reverted; suite after revert:
+  ℹ pass 43
+  ℹ fail 0
+
+=== Mutation f: src/handoff/tool.ts (negation does not veto consent)
+@@ -83 +83 @@ export function requested(text: string, name: string): boolean {
+-  if (new RegExp(NEGATION + n, "i").test(t) || new RegExp(`\\bleave\\s+${n}\\s+out\\b`, "i").test(t)) return false;
++  if (false && new RegExp(NEGATION + n, "i").test(t) || new RegExp(`\\bleave\\s+${n}\\s+out\\b`, "i").test(t)) return false;
+  ✖ consent needs a request for that agent in the student's words; a negation vetoes it 
+  ℹ pass 42
+  ℹ fail 1
+  ✖ failing tests:
+  ✖ consent needs a request for that agent in the student's words; a negation vetoes it 
+--- reverted; suite after revert:
+  ℹ pass 43
+  ℹ fail 0
+

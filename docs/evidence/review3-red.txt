@@ -1,0 +1,162 @@
+$ npm test  (review3.test.ts added, no src change; HEAD f2fb4e3)
+✖ failing tests:
+
+test at tests/review3.test.ts:11:1
+✖ S1: in a hand-off answer, a true claim about another agent of the same hand-off passes G1 untouched (23.500584ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    bringIn(["financial", "budget", true], ["academic", "classes", true])
+  
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/review3.test.ts:21:10)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:332:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '=='
+  }
+
+test at tests/review3.test.ts:24:1
+✖ S1: a false claim in a hand-off answer becomes an offer from that agent, and a yes in its thread brings the other in (0.984208ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'financial'
+  
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/review3.test.ts:29:10)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'financial',
+    operator: 'strictEqual'
+  }
+
+test at tests/review3.test.ts:34:1
+✖ P5: a G1 offer never overwrites another agent's live pending offer (1.201916ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      agents: [
+        {
+  +       ask: 'hm',
+  -       ask: 'check classes',
+          consent: 'pending',
+          id: 'academic'
+        }
+      ],
+  +   from: 'financial',
+  -   from: 'social',
+      offeredAt: 1791698400000,
+      party: [
+  +     'financial',
+  -     'social',
+        'academic'
+      ],
+  +   text: 'hm'
+  -   text: 'is saturday ok with my classes'
+    }
+  
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/review3.test.ts:47:10)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { from: 'financial', text: 'hm', offeredAt: 1791698400000, agents: [ [Object] ], party: [ 'financial', 'academic' ] },
+    expected: { from: 'social', text: 'is saturday ok with my classes', offeredAt: 1791698400000, agents: [ [Object] ], party: [ 'social', 'academic' ] },
+    operator: 'deepStrictEqual'
+  }
+
+test at tests/review3.test.ts:50:1
+✖ S2: a negation anywhere in the clause before the name vetoes consent (0.117583ms)
+  AssertionError [ERR_ASSERTION]: no need to ask penny
+  
+  true !== false
+  
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/review3.test.ts:52:143)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:752:18)
+      at Test.postRun (node:internal/test_runner/test:1191:19)
+      at Test.run (node:internal/test_runner/test:1119:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual'
+  }
+
+test at tests/review3.test.ts:56:1
+✖ S3: questions about the agent are not requests; 'can penny help' still is (0.081542ms)
+  AssertionError [ERR_ASSERTION]: will penny roast me?
+  
+  true !== false
+  
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/review3.test.ts:58:134)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:752:18)
+      at Test.postRun (node:internal/test_runner/test:1191:19)
+      at Test.run (node:internal/test_runner/test:1119:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual'
+  }
+
+test at tests/review3.test.ts:62:1
+✖ S4: G1 reads reach out / message / hit you up / get in touch / have X text as claims, and a trailing '?' is no escape (0.084708ms)
+  AssertionError [ERR_ASSERTION]: dean will reach out soon
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/review3.test.ts:66:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:752:18)
+      at Test.postRun (node:internal/test_runner/test:1191:19)
+      at Test.run (node:internal/test_runner/test:1119:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual'
+  }
+
+test at tests/review3.test.ts:71:1
+✖ names with regex characters are matched literally (0.105584ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/review3.test.ts:74:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1062:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:752:18)
+      at Test.postRun (node:internal/test_runner/test:1191:19)
+      at Test.run (node:internal/test_runner/test:1119:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual'
+  }
+
+test at tests/review3.test.ts:78:1
+✖ S5: engine.settled() waits for every delivery still in flight (0.989666ms)
+  TypeError [Error]: s.engine.settled is not a function
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/review3.test.ts:89:28)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7)
+ℹ tests 51
+ℹ pass 43
+ℹ fail 8

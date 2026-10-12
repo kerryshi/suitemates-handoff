@@ -1,0 +1,38 @@
+$ npm test | tail -15 (clone @ 2340aa2)
+  + actual - expected
+  
+  + undefined
+  - '+1646XXXXXXX (redacted: real number)'
+  
+      at TestContext.<anonymous> (/Users/kerryshi/Projects/suitemates-handoff/tests/agents.test.ts:172:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1069:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:752:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '+1646XXXXXXX (redacted: real number)',
+    operator: 'strictEqual'
+  }
+exit 
+
+$ npx tsc --noEmit -p .
+exit 
+
+$ printf 'beach trip saturday, can penny help
+' | npm run chat -- social | tail -5
+
+(not onboarded yet: say "hi", or /skip)
++19195550100 → Sunny> beach trip saturday, can penny help
+  [Sunny] hey, i'm Sunny from Suitemates. i'm the plans person: i find people who want to do the same stuff you do and text you when there's a plan worth joining. (Dean has school, Penny has money.) to do that i need two quick things. first: what's your first name? or skip setup: ask "what's happening this weekend?" and i'll use the demo board.
+  [Sunny] 📇 contact card: Sunny Suitemates (docs/avatars/sunny.png)
+
+ls-files .env count: 0
+
+--- summary: tests 303 pass 294 fail 1 todo 8 skipped 0; tsc exit 0 ---
+
+--- suitemates public history scan (fresh clone, 195 commits, git log --all -p, 37093 lines) ---
+git log --all -- DEAN.md / .env / *.env.md : empty
+Literal pattern 'PHOTON|SECRET=|AIza|token=' : only env-var NAMES in docs/code/tests (PHOTON_AUTO_ADD, PHOTON_API_TOKEN= empty placeholders) and test fixtures (token=s3cret, token=secret, "shared-token", "penny-token"); no values.
+AIza[...], sk-/ghp_/AC.../eyJ... : none. Non-555/0000/9999 +1 phone numbers : none.
+SECRET_SCAN: CLEAN

@@ -1,0 +1,122 @@
+# handoff-red-before: ported tests at 2026-10-12T17:18:56Z, before src/ exists
+$ npm test
+
+> suitemates-handoff@0.1.0 test
+> tsx --test tests/*.test.ts
+
+
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/kerryshi/Projects/suitemates-handoff/src/transport.ts' imported from /Users/kerryshi/Projects/suitemates-handoff/tests/handoff-engine.test.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:859:10)
+    at defaultResolve (node:internal/modules/esm/resolve:983:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:10494)
+    at async resolveDirectory (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11575) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/kerryshi/Projects/suitemates-handoff/src/transport.ts'
+}
+
+Node.js v24.3.0
+✖ tests/handoff-engine.test.ts (217.377667ms)
+
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/kerryshi/Projects/suitemates-handoff/src/handoff/state.ts' imported from /Users/kerryshi/Projects/suitemates-handoff/tests/handoff-state.test.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:859:10)
+    at defaultResolve (node:internal/modules/esm/resolve:983:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:10494)
+    at async resolveDirectory (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11575) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/kerryshi/Projects/suitemates-handoff/src/handoff/state.ts'
+}
+
+Node.js v24.3.0
+✖ tests/handoff-state.test.ts (215.608125ms)
+
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/kerryshi/Projects/suitemates-handoff/src/handoff/tool.ts' imported from /Users/kerryshi/Projects/suitemates-handoff/tests/handoff-tool.test.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:859:10)
+    at defaultResolve (node:internal/modules/esm/resolve:983:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:10494)
+    at async resolveDirectory (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11575) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/kerryshi/Projects/suitemates-handoff/src/handoff/tool.ts'
+}
+
+Node.js v24.3.0
+✖ tests/handoff-tool.test.ts (216.122ms)
+
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/kerryshi/Projects/suitemates-handoff/src/governance.ts' imported from /Users/kerryshi/Projects/suitemates-handoff/tests/honesty.test.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:859:10)
+    at defaultResolve (node:internal/modules/esm/resolve:983:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:10494)
+    at async resolveDirectory (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11575) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/kerryshi/Projects/suitemates-handoff/src/governance.ts'
+}
+
+Node.js v24.3.0
+✖ tests/honesty.test.ts (214.973958ms)
+
+node:internal/modules/run_main:105
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/Users/kerryshi/Projects/suitemates-handoff/src/llm/scripted.ts' imported from /Users/kerryshi/Projects/suitemates-handoff/tests/scripted-llm.test.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:859:10)
+    at defaultResolve (node:internal/modules/esm/resolve:983:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:10494)
+    at async resolveDirectory (file:///Users/kerryshi/Projects/suitemates-handoff/node_modules/tsx/dist/register-nyXW-TH3.mjs:2:11575) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///Users/kerryshi/Projects/suitemates-handoff/src/llm/scripted.ts'
+}
+
+Node.js v24.3.0
+✖ tests/scripted-llm.test.ts (213.011417ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 0
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 222.923958
+
+✖ failing tests:
+
+test at tests/handoff-engine.test.ts:1:1
+✖ tests/handoff-engine.test.ts (217.377667ms)
+  'test failed'
+
+test at tests/handoff-state.test.ts:1:1
+✖ tests/handoff-state.test.ts (215.608125ms)
+  'test failed'
+
+test at tests/handoff-tool.test.ts:1:1
+✖ tests/handoff-tool.test.ts (216.122ms)
+  'test failed'
+
+test at tests/honesty.test.ts:1:1
+✖ tests/honesty.test.ts (214.973958ms)
+  'test failed'
+
+test at tests/scripted-llm.test.ts:1:1
+✖ tests/scripted-llm.test.ts (213.011417ms)
+  'test failed'
+exit=1

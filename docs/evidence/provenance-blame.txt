@@ -1,0 +1,50 @@
+# git blame -w --line-porcelain @ 2340aa2, source /Users/kerryshi/Projects/hacknc-agents (author -> line count)
+== core/recruit.ts (     233 lines)
+ 233 kerryshi
+== core/memory.ts (      80 lines)
+  80 kerryshi
+== core/governance.ts (      78 lines)
+  78 kerryshi
+== core/llm/gemini.ts (     125 lines)
+ 125 kerryshi
+== core/llm/client.ts (      24 lines)
+  24 kerryshi
+== core/store.ts (      88 lines)
+  84 kerryshi
+   4 teammate A
+== core/llm/fake.ts (      43 lines)
+  41 kerryshi
+   2 teammate A
+== core/agent.ts (     123 lines)
+ 105 kerryshi
+  18 teammate A
+== core/types.ts (     125 lines)
+  85 kerryshi
+  36 teammate A
+   4 teammate B
+== core/engine.ts (     317 lines)
+ 250 kerryshi
+  67 teammate A
+== core/transport.ts (     225 lines)
+ 171 kerryshi
+  54 teammate A
+== tests/recruit.test.ts (     240 lines)
+ 240 kerryshi
+== tests/recruit-review.test.ts (     304 lines)
+ 304 kerryshi
+== tests/recruit-honesty.test.ts (      58 lines)
+  58 kerryshi
+== tests/governance.test.ts (      11 lines)
+  11 kerryshi
+== tests/agents.test.ts (     195 lines)
+ 193 teammate A
+   2 kerryshi
+== personas/social/index.ts (      20 lines)
+  13 kerryshi
+   7 teammate B
+== personas/academic/index.ts (      25 lines)
+  18 kerryshi
+   7 teammate A
+== personas/financial/index.ts (      24 lines)
+  15 kerryshi
+   9 teammate A

@@ -1,0 +1,21 @@
+{
+  "name": "suitemates-handoff",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Three LLM texting agents that recruit each other; a small state machine, not the model, decides the hand-off",
+  "engines": {
+    "node": ">=20.18.1"
+  },
+  "scripts": {
+    "test": "tsx --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit -p .",
+    "demo": "tsx scripts/demo.ts",
+    "chat": "tsx scripts/chat.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3"
+  }
+}

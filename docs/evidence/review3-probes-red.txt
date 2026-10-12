@@ -1,0 +1,50 @@
+review-3 probes, run against f2fb4e3 before any fix (2026-10-12T18:06:41Z). P1-P5 as defined in this run (the reviewer's own probe text was not in the brief): P1 chat happy path, P2 negation, P3 S3 questions + G1 CLAIM verbs/'?' escape, P4/P5 recruit-setting G1 + offer overwrite.
+
+$ printf 'beach trip saturday?
+yes
+' | npm run chat   (P1)
+
+> suitemates-handoff@0.1.0 chat
+> tsx scripts/chat.ts
+
+chat with Sunny (scripted). No GEMINI_API_KEY: scripted; try "beach trip saturday?" then "yes". Ctrl-D to quit.
+  [engine] social: tool find_plans({})
+  [engine] social: tool bring_in({"agent":"financial","ask":"price the beach trip"})
+  Sunny: wrightsville beach, sat 9am, about $45 a person. want penny to check that against your budget?
+  [engine] financial: tool check_budget({})
+  Sunny: on it! Penny is texting you now from their own number (nothing showing? check Messages → Unknown Senders)
+  Penny: hey, i'm penny. i keep an eye on the money
+  Penny: [contact card: Penny Suitemates, +19195550102]
+  Penny: beach trip's about $45, that's 21% of the $210 you have left this month. you're good
+P1 note: default model was gemini-2.5-flash; hacknc-agents core/config.ts:15 default is gemini-3.6-flash. The scripted run prints Penny only because the script answers synchronously; nothing awaits deliveries before exit.
+
+$ npx tsx probes.mts
+== P2 negation (want false)
+"no need to ask penny" true
+"don't ever ask penny" true
+"you don't have to bring penny in" true
+"don't bring penny into this" false
+== P3 questions about the agent (want false) / requests (want true)
+"will penny roast me?" true
+"why would penny care" true
+"did you ask penny already?" true
+"could penny be mad at me" true
+"can penny help" true
+"ask penny" true
+"bring penny in" true
+== P4 CLAIM verbs and '?' escape (persona social, dispatched [], want hits)
+"dean will reach out soon" hits=0 "dean will reach out soon"
+"dean will message you" hits=0 "dean will message you"
+"dean will hit you up" hits=0 "dean will hit you up"
+"dean will get in touch" hits=0 "dean will get in touch"
+"i'll have dean text you" hits=0 "i'll have dean text you"
+"dean's texting you now, cool?" hits=0 "dean's texting you now, cool?"
+"dean is texting you now. sound good?" hits=1 "want dean to jump in? sound good?"
+== P5 recruit setting: Penny and Dean both dispatched; Penny says 'dean's texting you too' (true claim)
+["social: you're in! want Penny to jump in on this?","financial: hey, i'm penny. i keep an eye on the money","financial: ","financial: you're good on money. want dean to jump in?"]
+== P5b recruit setting false claim: Penny (recruit) says sunny... dean is texting, not dispatched; then yes in Penny's thread
+["social: you're in! want Penny to jump in on this?","financial: hey, i'm penny. i keep an eye on the money","financial: ","financial: want dean to jump in?"] pending= undefined
+yes-> ["financial: Penny reply"] adds= ["financial"]
+== P5c G1 offer overwrites another agent's live pending offer
+before: {"from":"social","text":"is saturday ok with my classes","offeredAt":1791698400000,"agents":[{"id":"academic","ask":"check classes","consent":"pending"}],"party":["social","academic"]}
+after:  {"from":"financial","text":"hm","offeredAt":1791698400000,"agents":[{"id":"academic","ask":"hm","consent":"pending"}],"party":["financial","academic"]}

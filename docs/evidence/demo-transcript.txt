@@ -1,0 +1,30 @@
+Sam → Sunny: beach trip saturday, can i afford it?
+  Sunny: wrightsville beach, sat 9am, about $45 a person. want penny to check that against your budget?
+
+Sam → Sunny: yes
+  Sunny: on it! Penny is texting you now from their own number (nothing showing? check Messages → Unknown Senders)
+  Penny: hey, i'm penny. i keep an eye on the money
+  Penny: [contact card: Penny Suitemates, +19195550102]
+  Penny: beach trip's about $45, that's 21% of the $210 you have left this month. you're good
+
+Sam → Sunny: is saturday ok with my classes too?
+  Sunny: want dean to check saturday against your classes?
+
+(11 minutes later)
+
+Sam → Sunny: yes
+  Sunny: yes to what? lol. beach is still on for saturday
+
+Sam → Penny: is dean gonna text me?
+  [gate] financial: governed G1: claimed Dean is texting; not dispatched
+  Penny: want dean to jump in?
+
+Sam → Penny: yes
+  Penny: on it! Dean is texting you now from their own number (nothing showing? check Messages → Unknown Senders)
+  Dean: hey, i'm dean. i keep track of school
+  Dean: [contact card: Dean Suitemates, +19195550103]
+  Dean: this week: comp 421 project 1 is due monday 9am
+
+Sam → Sunny: ask dean if saturday is clear
+  Sunny: dean's texting you now
+  Dean: saturday's clear, no classes and nothing due that day

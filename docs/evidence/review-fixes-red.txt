@@ -1,0 +1,27 @@
+=== g1-red (before the fix)
+    actual: 0,
+    expected: true,
+  AssertionError [ERR_ASSERTION]: caught: penny and dean are on it
+ℹ fail 1
+✖ failing tests:
+✖ G1: one sentence naming two agents is rewritten when either was not dispatched 
+ℹ pass 4
+
+=== consent-red (before the fix)
+    actual: 'given',
+    expected: 'pending',
+  AssertionError [ERR_ASSERTION]: don't bring penny into this
+✖ consent needs a request for that agent in the student's words; a negation vetoes it 
+ℹ fail 1
+✖ failing tests:
+ℹ pass 5
+
+=== g1offer-red (before the fix)
+    actual: 'Penny reply',
+    expected: /Dean is texting you now from their own number/,
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Dean is texting you now from their own number/. Input:
+✖ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) 
+ℹ fail 1
+✖ failing tests:
+ℹ pass 5
+

@@ -1,0 +1,48 @@
+// Reviewer probes P2-P5 against the repo's src (P1 is the chat CLI run, separately).
+import { g1HandoffClaims } from "/Users/kerryshi/Projects/suitemates-handoff/src/governance.ts";
+import { requested } from "/Users/kerryshi/Projects/suitemates-handoff/src/handoff/tool.ts";
+import { setup, withSpy, me, lastUser, bringIn, PHONE } from "/Users/kerryshi/Projects/suitemates-handoff/tests/helpers.ts";
+const names = { academic: "dean", financial: "penny", social: "sunny" } as any;
+console.log("== P2 negation (want false)");
+for (const t of ["no need to ask penny", "don't ever ask penny", "you don't have to bring penny in", "don't bring penny into this"]) console.log(JSON.stringify(t), requested(t, "penny"));
+console.log("== P3 questions about the agent (want false) / requests (want true)");
+for (const t of ["will penny roast me?", "why would penny care", "did you ask penny already?", "could penny be mad at me"]) console.log(JSON.stringify(t), requested(t, "penny"));
+for (const t of ["can penny help", "ask penny", "bring penny in"]) console.log(JSON.stringify(t), requested(t, "penny"));
+console.log("== P4 CLAIM verbs and '?' escape (persona social, dispatched [], want hits)");
+for (const t of ["dean will reach out soon", "dean will message you", "dean will hit you up", "dean will get in touch", "i'll have dean text you", "dean's texting you now, cool?", "dean is texting you now. sound good?"]) {
+  const v = g1HandoffClaims(t, { persona: "social", dispatched: [] }, names);
+  console.log(JSON.stringify(t), "hits=" + v.hits.length, JSON.stringify(v.text));
+}
+console.log("== P5 recruit setting: Penny and Dean both dispatched; Penny says 'dean's texting you too' (true claim)");
+{
+  const s = setup({ llm: withSpy((req) => {
+    if (me(req) === "Sunny" && /ask penny and dean/.test(lastUser(req) ?? "")) return bringIn(["financial", "budget", true], ["academic", "classes", true]);
+    if (me(req) === "Penny" && (lastUser(req) ?? "").startsWith("[handoff")) return { text: "you're good on money. dean's texting you too about classes" };
+    return undefined;
+  }) });
+  const outs = await s.dm("ask penny and dean if saturday works");
+  console.log(JSON.stringify(outs.map((o) => `${o.persona}: ${o.text}`)));
+}
+console.log("== P5b recruit setting false claim: Penny (recruit) says sunny... dean is texting, not dispatched; then yes in Penny's thread");
+{
+  const s = setup({ llm: withSpy((req) => {
+    if (me(req) === "Penny" && (lastUser(req) ?? "").startsWith("[handoff")) return { text: "dean's texting you about classes" };
+    return undefined;
+  }) });
+  const o1 = await s.dm("ask penny if i can afford boba");
+  console.log(JSON.stringify(o1.map((o) => `${o.persona}: ${o.text}`)), "pending=", JSON.stringify(s.pending()));
+  const o2 = await s.to("financial", "yes");
+  console.log("yes->", JSON.stringify(o2.map((o) => `${o.persona}: ${o.text}`)), "adds=", JSON.stringify(s.adds));
+}
+console.log("== P5c G1 offer overwrites another agent's live pending offer");
+{
+  const s = setup({ user: { agents: ["social", "financial"], greeted: ["social", "financial"] }, llm: withSpy((req) => {
+    if (me(req) === "Sunny" && /classes/.test(lastUser(req) ?? "")) return bringIn(["academic", "check classes"]);
+    if (me(req) === "Penny" && lastUser(req) === "hm") return { text: "dean's texting you now" };
+    return undefined;
+  }) });
+  await s.dm("is saturday ok with my classes");
+  console.log("before:", JSON.stringify(s.pending()));
+  await s.to("financial", "hm");
+  console.log("after: ", JSON.stringify(s.pending()));
+}

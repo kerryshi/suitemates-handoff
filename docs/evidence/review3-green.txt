@@ -1,0 +1,117 @@
+review-3 after fixes (working tree on f2fb4e3, 2026-10-12T18:09:22Z)
+$ npm run typecheck
+exit 0
+$ npm test
+✔ the offer: Sunny asks once, Penny and Dean are added in the background, nothing waits on the add (17.326292ms)
+✔ 'yes' on Sunny's thread: Sunny acks, then Penny and Dean each text first from their own number with hello, card, answer (1.339417ms)
+✔ 'no' drops the offer; anything that isn't yes or no also drops it (one-shot) and gets a normal reply (0.546916ms)
+✔ naming an agent is consent: no question, Penny texts first in the same turn (0.728209ms)
+✔ an agent they already have answers from its own thread right away: no question, no second hello (0.409666ms)
+✔ a 'yes' in another hand-off agent's thread only counts for a few minutes; the offerer's own thread keeps it longer (1.208083ms)
+✔ a 'yes' after the offer expired is just a message: nobody is brought in (0.29575ms)
+✔ if Penny can't be added (full, dead token), she still answers: through Sunny's thread, with no contact card (0.406ms)
+✔ the 'on it' line only promises own numbers for agents that have one (single shared number: they jump in here) (0.380291ms)
+✔ a handoff answer that comes back empty is retried once; if it fails again the new agent sends no glitch text (0.885291ms)
+✔ a 'yes' after the background add settled reuses it (no second add, no wait) (2.78875ms)
+✔ two yeses in flight at once bring Penny in once: one hello and card, not two (0.341416ms)
+✔ someone who texted in (no agents list yet) keeps their first agent after a recruit (0.220375ms)
+✔ with a deliver hook, 'yes' returns the ack at once; each agent's texts go out as soon as that agent is ready (0.337333ms)
+✔ a 'yes' in the thread of an agent from the same hand-off counts (Penny answered first, so they said yes to her) (0.38525ms)
+✔ a 'yes' to an agent outside the hand-off doesn't accept it (0.210958ms)
+✔ a non-answer to Penny keeps Sunny's offer; a later yes to Sunny still brings Dean (0.440542ms)
+✔ 'yes option 1' to Dean (answering his own 'your call') goes to Dean, doesn't recruit Penny or drop her offer (0.399209ms)
+✔ in another agent's thread only a real yes counts, not 'ok' (0.328792ms)
+✔ the party window is ~3 minutes: a yes to Penny at 2.5 min still counts (0.2685ms)
+✔ an agent that just answered a hand-off isn't run again for a bare yes a minute later (no duplicate texts) (0.40475ms)
+✔ the cooldown only stops a duplicate: a changed plan within 3 min still reaches Penny (0.44375ms)
+✔ the cooldown never stops a named request: 'ask penny about the hotel too' within 3 min reaches her (0.607792ms)
+✔ cooldown recorded only after a real answer: if Penny's answer failed, a yes a minute later runs her again (0.552584ms)
+✔ transport: one failed send doesn't drop the rest of the batch (0.101083ms)
+✔ consent: 'no' wins over a polite yes-word, and a question isn't a yes (0.782875ms)
+✔ consent reads natural answers: 'sure, i don't mind' and 'yes that would be great' are yes; 'please no' and 'nah im good' are no (0.091541ms)
+✔ an offer expires after OFFER_TTL in every thread; another hand-off agent's thread only counts inside PARTY_TTL (0.081458ms)
+✔ in another agent's thread only a plain yes accepts: 'ok', 'k', 'bet' are about that agent (0.177583ms)
+✔ bring_in refuses to recruit yourself and needs a named agent (never a guess from the text) (0.947333ms)
+✔ bring_in takes a display name ('Penny'), and never recruits whoever else the text mentions (0.835083ms)
+✔ asked=true is not consent unless the student named the agent (0.326125ms)
+✔ naming the agent with asked=true is consent: the tool says it's texting now (1.699291ms)
+✔ consent needs a request for that agent in the student's words; a negation vetoes it (4.712916ms)
+✔ the cooldown message points at the right thread when Penny speaks through Sunny's (via) (0.71975ms)
+✔ G1: a claim that another agent is texting, when no hand-off went out, is rewritten (2.843875ms)
+✔ G1: true claims and plain mentions pass byte-for-byte (0.103625ms)
+✔ engine G1: Penny's false 'dean's texting you now' (no hand-off this turn) never reaches the student or her history (13.749167ms)
+✔ engine G1: a claim about an agent not dispatched is rewritten even when another one was (Penny went, Dean didn't) (2.036083ms)
+✔ G1: one sentence naming two agents is rewritten when either was not dispatched (0.142375ms)
+✔ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) (1.073958ms)
+✔ S1: in a hand-off answer, a true claim about another agent of the same hand-off passes G1 untouched (17.871708ms)
+✔ S1: a false claim in a hand-off answer becomes an offer from that agent, and a yes in its thread brings the other in (0.982791ms)
+✔ P5: a G1 offer never overwrites another agent's live pending offer (0.51075ms)
+✔ S2: a negation anywhere in the clause before the name vetoes consent (0.082459ms)
+✔ S3: questions about the agent are not requests; 'can penny help' still is (0.087792ms)
+✔ S4: G1 reads reach out / message / hit you up / get in touch / have X text as claims, and a trailing '?' is no escape (0.102625ms)
+✔ names with regex characters are matched literally (0.097292ms)
+✔ S5: engine.settled() waits for every delivery still in flight (2.543833ms)
+✔ scripted model: rules match by persona and message, and each is consumed once, in order (0.813334ms)
+✔ scripted model: an unexpected call throws instead of improvising (0.285167ms)
+ℹ tests 51
+ℹ pass 51
+ℹ fail 0
+$ npm run demo (diff vs docs/evidence/demo-transcript.txt)
+identical
+
+$ printf 'beach trip saturday?
+yes
+' | npm run chat   (P1)
+chat with Sunny (scripted). No GEMINI_API_KEY: scripted; try "beach trip saturday?" then "yes". Ctrl-D to quit.
+  [engine] social: tool find_plans({})
+  [engine] social: tool bring_in({"agent":"financial","ask":"price the beach trip"})
+  Sunny: wrightsville beach, sat 9am, about $45 a person. want penny to check that against your budget?
+  [engine] financial: tool check_budget({})
+  Sunny: on it! Penny is texting you now from their own number (nothing showing? check Messages → Unknown Senders)
+  Penny: hey, i'm penny. i keep an eye on the money
+  Penny: [contact card: Penny Suitemates, +19195550102]
+  Penny: beach trip's about $45, that's 21% of the $210 you have left this month. you're good
+exit 0
+
+$ npx tsx probes.mts  (P2-P5, same script as red)
+== P2 negation (want false)
+"no need to ask penny" false
+"don't ever ask penny" false
+"you don't have to bring penny in" false
+"don't bring penny into this" false
+== P3 questions about the agent (want false) / requests (want true)
+"will penny roast me?" false
+"why would penny care" false
+"did you ask penny already?" false
+"could penny be mad at me" false
+"can penny help" true
+"ask penny" true
+"bring penny in" true
+== P4 CLAIM verbs and '?' escape (persona social, dispatched [], want hits)
+"dean will reach out soon" hits=1 "want dean to jump in?"
+"dean will message you" hits=1 "want dean to jump in?"
+"dean will hit you up" hits=1 "want dean to jump in?"
+"dean will get in touch" hits=1 "want dean to jump in?"
+"i'll have dean text you" hits=1 "want dean to jump in?"
+"dean's texting you now, cool?" hits=1 "want dean to jump in?"
+"dean is texting you now. sound good?" hits=1 "want dean to jump in? sound good?"
+== P5 recruit setting: Penny and Dean both dispatched; Penny says 'dean's texting you too' (true claim)
+["social: you're in! want Penny to jump in on this?","financial: hey, i'm penny. i keep an eye on the money","financial: ","financial: you're good on money. want dean to jump in?"]
+== P5b recruit setting false claim: Penny (recruit) says sunny... dean is texting, not dispatched; then yes in Penny's thread
+["social: you're in! want Penny to jump in on this?","financial: hey, i'm penny. i keep an eye on the money","financial: ","financial: want dean to jump in?"] pending= {"from":"financial","text":"ask penny if i can afford boba","offeredAt":1791698400000,"agents":[{"id":"academic","ask":"ask penny if i can afford boba","consent":"pending"}],"party":["financial","academic"]}
+yes-> ["financial: on it! Dean is texting you now from their own number (nothing showing? check Messages → Unknown Senders)","academic: hey, i'm dean. i keep track of school","academic: ","academic: Dean answer"] adds= ["financial","academic"]
+== P5c G1 offer overwrites another agent's live pending offer
+before: {"from":"social","text":"is saturday ok with my classes","offeredAt":1791698400000,"agents":[{"id":"academic","ask":"check classes","consent":"pending"}],"party":["social","academic"]}
+after:  {"from":"social","text":"is saturday ok with my classes","offeredAt":1791698400000,"agents":[{"id":"academic","ask":"check classes","consent":"pending"}],"party":["social","academic"]}
+
+NOTE on probe "P5" (first variant): its fixture text "ask penny and dean" only dispatches Penny (requested() needs a
+request word right before each name), so Dean was never dispatched and the rewrite is correct there. The S1 test uses
+"ask penny and ask dean ..." (both dispatched); red before the fix, green after:
+$ git stash (src only) && npx tsx --test --test-name-pattern='true claim about another' tests/review3.test.ts
+✖ S1: in a hand-off answer, a true claim about another agent of the same hand-off passes G1 untouched (22.004875ms)
+ℹ pass 0
+ℹ fail 1
+$ (fixed src) same
+✔ S1: in a hand-off answer, a true claim about another agent of the same hand-off passes G1 untouched (16.529458ms)
+ℹ pass 1
+ℹ fail 0

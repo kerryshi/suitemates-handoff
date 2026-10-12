@@ -1,0 +1,63 @@
+# handoff-green: 2026-10-12T17:58:59Z, main @ 1da0dda + this evidence commit
+$ npm test
+
+> suitemates-handoff@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ the offer: Sunny asks once, Penny and Dean are added in the background, nothing waits on the add (17.116ms)
+✔ 'yes' on Sunny's thread: Sunny acks, then Penny and Dean each text first from their own number with hello, card, answer (1.5325ms)
+✔ 'no' drops the offer; anything that isn't yes or no also drops it (one-shot) and gets a normal reply (0.53325ms)
+✔ naming an agent is consent: no question, Penny texts first in the same turn (0.435792ms)
+✔ an agent they already have answers from its own thread right away: no question, no second hello (0.40475ms)
+✔ a 'yes' in another hand-off agent's thread only counts for a few minutes; the offerer's own thread keeps it longer (0.54375ms)
+✔ a 'yes' after the offer expired is just a message: nobody is brought in (0.741125ms)
+✔ if Penny can't be added (full, dead token), she still answers: through Sunny's thread, with no contact card (0.41625ms)
+✔ the 'on it' line only promises own numbers for agents that have one (single shared number: they jump in here) (0.3815ms)
+✔ a handoff answer that comes back empty is retried once; if it fails again the new agent sends no glitch text (0.889166ms)
+✔ a 'yes' after the background add settled reuses it (no second add, no wait) (2.945792ms)
+✔ two yeses in flight at once bring Penny in once: one hello and card, not two (0.359584ms)
+✔ someone who texted in (no agents list yet) keeps their first agent after a recruit (0.22925ms)
+✔ with a deliver hook, 'yes' returns the ack at once; each agent's texts go out as soon as that agent is ready (0.333042ms)
+✔ a 'yes' in the thread of an agent from the same hand-off counts (Penny answered first, so they said yes to her) (0.4005ms)
+✔ a 'yes' to an agent outside the hand-off doesn't accept it (0.215959ms)
+✔ a non-answer to Penny keeps Sunny's offer; a later yes to Sunny still brings Dean (0.457125ms)
+✔ 'yes option 1' to Dean (answering his own 'your call') goes to Dean, doesn't recruit Penny or drop her offer (0.370292ms)
+✔ in another agent's thread only a real yes counts, not 'ok' (0.305042ms)
+✔ the party window is ~3 minutes: a yes to Penny at 2.5 min still counts (0.2655ms)
+✔ an agent that just answered a hand-off isn't run again for a bare yes a minute later (no duplicate texts) (0.372958ms)
+✔ the cooldown only stops a duplicate: a changed plan within 3 min still reaches Penny (0.420542ms)
+✔ the cooldown never stops a named request: 'ask penny about the hotel too' within 3 min reaches her (0.339916ms)
+✔ cooldown recorded only after a real answer: if Penny's answer failed, a yes a minute later runs her again (0.454625ms)
+✔ transport: one failed send doesn't drop the rest of the batch (0.09125ms)
+✔ consent: 'no' wins over a polite yes-word, and a question isn't a yes (0.832ms)
+✔ consent reads natural answers: 'sure, i don't mind' and 'yes that would be great' are yes; 'please no' and 'nah im good' are no (0.095625ms)
+✔ an offer expires after OFFER_TTL in every thread; another hand-off agent's thread only counts inside PARTY_TTL (0.081ms)
+✔ in another agent's thread only a plain yes accepts: 'ok', 'k', 'bet' are about that agent (0.172625ms)
+✔ bring_in refuses to recruit yourself and needs a named agent (never a guess from the text) (0.836667ms)
+✔ bring_in takes a display name ('Penny'), and never recruits whoever else the text mentions (0.884833ms)
+✔ asked=true is not consent unless the student named the agent (0.471667ms)
+✔ naming the agent with asked=true is consent: the tool says it's texting now (0.792917ms)
+✔ consent needs a request for that agent in the student's words; a negation vetoes it (0.238292ms)
+✔ the cooldown message points at the right thread when Penny speaks through Sunny's (via) (0.124542ms)
+✔ G1: a claim that another agent is texting, when no hand-off went out, is rewritten (1.899875ms)
+✔ G1: true claims and plain mentions pass byte-for-byte (0.097375ms)
+✔ engine G1: Penny's false 'dean's texting you now' (no hand-off this turn) never reaches the student or her history (13.675417ms)
+✔ engine G1: a claim about an agent not dispatched is rewritten even when another one was (Penny went, Dean didn't) (2.017083ms)
+✔ G1: one sentence naming two agents is rewritten when either was not dispatched (0.174667ms)
+✔ engine G1: the rewritten question is a real offer, so a plain 'yes' brings that agent in (and not after it expires) (1.226792ms)
+✔ scripted model: rules match by persona and message, and each is consumed once, in order (0.838708ms)
+✔ scripted model: an unexpected call throws instead of improvising (0.288041ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 43
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 215.318292
+$ npm run typecheck
+
+> suitemates-handoff@0.1.0 typecheck
+> tsc --noEmit -p .
+
+exit 0
