@@ -1,5 +1,9 @@
 # suitemates-handoff
 
+**LLM agents that can't lie about what they did:** the model proposes, a tested state machine decides, and a gate rewrites false claims before they reach the user. A slice of my [HackNC 2026](https://github.com/kerryshi/suitemates) team build.
+
+![demo: npm run demo, no API key](docs/media/demo.gif)
+
 Three LLM texting agents (Sunny for plans, Penny for money, Dean for school) that bring each other into a
 conversation. The model may only **propose** a hand-off. Whether one happens is decided by a small pure state
 machine, and a post-generation gate rewrites any "X is texting you" claim the engine did not actually dispatch.
